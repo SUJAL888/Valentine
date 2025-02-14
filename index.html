@@ -98,10 +98,18 @@
       #video-container {
         display: none;
         margin-top: 30px;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+        position: absolute;
+        left: 50%;
+        top: 33%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
       }
 
       #video-container video {
-        width: 80%;
+        width: 100%;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
@@ -129,17 +137,7 @@
 
     <!-- Hidden Video Container -->
     <div id="video-container">
-      <video
-        controls
-        autoplay
-        style="
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 999;
-        "
-      >
+      <video controls>
         <source src="video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -156,7 +154,7 @@
 
       function showVideo() {
         // Show the hidden video container
-        document.getElementById("video-container").style.display = "block";
+        document.getElementById("video-container").style.display = "flex";
       }
 
       function createFloatingItems() {
