@@ -8,32 +8,39 @@
       @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap");
+
       body {
         font-family: "Dancing Script", cursive;
         text-align: center;
         background-color: pink;
-        overflow: hidden;
         position: relative;
+        margin: 0;
+        padding: 0;
       }
       .container {
-        margin-top: 100px;
+        margin-top: 10vh;
         position: relative;
         z-index: 2;
       }
       h1 {
-        font-size: 2.5em;
+        font-size: 4vw;
         color: red;
+        margin: 0;
+        padding: 0;
       }
       p {
-        font-size: 1.8em;
+        font-size: 2vw;
         color: darkred;
         margin-top: 20px;
       }
       .buttons {
         margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
       }
       button {
-        font-size: 2em;
+        font-size: 1.8vw;
         padding: 15px 30px;
         margin: 10px;
         border-radius: 30px;
@@ -41,6 +48,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        min-width: 120px;
       }
       #yes {
         background-color: #ff99cc;
@@ -56,9 +64,7 @@
         transform: scale(1.1);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       }
-      #no {
-        position: absolute;
-      }
+
       .floating-item {
         position: absolute;
         width: 50px;
@@ -77,10 +83,14 @@
       }
       .photo-gallery {
         margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
       }
       .photo-gallery img {
-        width: 250px; /* Smaller image size */
-        height: 250px; /* Smaller image size */
+        width: 30vw; /* Responsive image size */
+        max-width: 250px;
+        height: auto;
         border-radius: 10px;
         margin: 15px;
       }
@@ -97,21 +107,40 @@
       /* Hidden video container */
       #video-container {
         display: none;
-        margin-top: 30px;
         justify-content: center;
         align-items: center;
         height: 100vh; /* Full viewport height */
         position: absolute;
         left: 50%;
-        top: 33%;
+        top: 48%;
         transform: translate(-50%, -50%);
         z-index: 99;
       }
 
       #video-container video {
-        width: 100%;
+        width: 90vw;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Media Query for smaller devices */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 5vw;
+        }
+        p {
+          font-size: 4vw;
+        }
+        button {
+          font-size: 5vw;
+          padding: 12px 20px;
+        }
+        .photo-gallery {
+          margin-left: -32px;
+        }
+        .photo-gallery img {
+          width: 100vw;
+        }
       }
     </style>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -137,7 +166,7 @@
 
     <!-- Hidden Video Container -->
     <div id="video-container">
-      <video controls>
+      <video id="my-video" controls>
         <source src="video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -150,11 +179,23 @@
         let y = Math.random() * (window.innerHeight - button.offsetHeight);
         button.style.left = `${x}px`;
         button.style.top = `${y}px`;
+        button.style.position = "absolute ";
       }
 
       function showVideo() {
         // Show the hidden video container
+
         document.getElementById("video-container").style.display = "flex";
+
+        const video = document.getElementById("my-video");
+
+        video.requestFullscreen =
+          video.requestFullscreen ||
+          video.mozRequestFullScreen ||
+          video.webkitRequestFullscreen ||
+          video.msRequestFullscreen;
+
+        video.requestFullscreen();
       }
 
       function createFloatingItems() {
